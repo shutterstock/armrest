@@ -1,0 +1,17 @@
+{
+  "name": "armrest",
+  "description": "A high-level HTTP / REST client for Node",
+  "version": "1.0.0",
+  "author": "David Chester <dchester@shutterstock.com>",
+  "main": "./lib/",
+  "scripts": {
+    "test": "node_modules/nodeunit/bin/nodeunit tests"
+  },
+  "devDependencies": {
+    "nodeunit": "*"
+  },
+  "dependencies": {
+    "request": "*",
+    "log4js": "*"
+  }
+}
