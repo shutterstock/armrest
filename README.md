@@ -20,6 +20,13 @@ github.get({
 });
 ```
 
+## Installation
+
+Install with npm:
+```
+$ npm install armrest
+```
+
 ## Instantiating a REST Client
 
 The `armrest.client()` factory takes two forms: send the base URL as a string if that will get you going, or send an object with parameters below for more flexibility.
