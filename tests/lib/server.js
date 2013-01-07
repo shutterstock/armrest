@@ -66,6 +66,14 @@ var server = http.createServer(function(req, res) {
 				res.writeHead(200, { 'Content-Type': 'application/json' });
 				res.end(JSON.stringify(JSON.parse(body)));
 			});
+		},
+		'/multi/level/structure': function() {
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify({ level: 'level', structure: 'structure' }));
+		},
+		'/multi/level/:structure': function() {
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify({ level: 'level' }));
 		}
 	};
 

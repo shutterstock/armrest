@@ -47,6 +47,50 @@ exports.postBody = function(test) {
 	});
 };
 
+exports.interpolate = function(test) {
+	client.get({
+		url: '/multi/:level/:structure',
+		params: { level: 'level', structure: 'structure' },
+		success: function(data) {
+			test.deepEqual(data, { level: 'level', structure: 'structure' }, "got back interpolated values");
+			test.done();
+		}
+	});
+};
+
+exports.uninterpolate = function(test) {
+	client.get({
+		url: '/multi/:level/:structure',
+		params: { level: 'level' },
+		success: function(data) {
+			test.deepEqual(data, { level: 'level' }, "uninterpolated values left alone");
+			test.done();
+		}
+	});
+};
+
+exports.interpolatePostQuery = function(test) {
+	client.post({
+		url: '/multi/:level/:structure',
+		query: { level: 'level', structure: 'structure' },
+		success: function(data) {
+			test.deepEqual(data, { level: 'level', structure: 'structure' }, "interpolated values for post + q");
+			test.done();
+		}
+	});
+};
+
+exports.colons = function(test) {
+	client.get({
+		url: '/echo-query',
+		params: { 'colon:param': 'unadulterated' },
+		success: function(data) {
+			test.deepEqual(data, { 'colon:param': 'unadulterated' }, "got back interpolated values");
+			test.done();
+		}
+	});
+};
+
 exports.setUp = function(callback) {
 	server.listen(59903, null, null, callback);
 };
