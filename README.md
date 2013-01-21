@@ -83,7 +83,7 @@ Callback to be executed upon success, with the deserialized response as the firs
 
 ##### error
 
-Callback to be executed upon failure, with the deserialized response as the first parameter, followed by the full response object.
+Callback to be executed upon failure, with the error as the first parameter, followed by the full response object.
 
 ##### complete
 
