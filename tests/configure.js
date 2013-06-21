@@ -1,7 +1,7 @@
 var reload = function(module) {
 	delete require.cache[ require.resolve(module) ];
 	return require(module);
-}
+};
 
 exports.configure = function(test) {
 

@@ -60,7 +60,7 @@ var server = http.createServer(function(req, res) {
 				return res.end(JSON.stringify({ "bad content type": req.headers['Content-Type'] }));
 			}
 
-			req.on('data', function(data) { body += data });
+			req.on('data', function(data) { body += data; });
 
 			req.on('end', function() {
 				res.writeHead(200, { 'Content-Type': 'application/json' });
