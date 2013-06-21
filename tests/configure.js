@@ -1,12 +1,14 @@
-var reload = function(module) {
-	delete require.cache[require.resolve(module)];
-	return require(module);
+var client;
+
+exports.setUp = function(callback) {
+	var clientPath = '../lib';
+	delete require.cache[require.resolve(clientPath)];
+	client = require(clientPath);
+	callback();
 };
 
 exports.configureNameAndHostname = function(test) {
-	var client = reload('../lib');
 	var args = 'api.github.com';
-	test.equal(client.github, undefined, 'registry starts empty');
 	client.configure('github', args);
 	test.ok(client.github instanceof client, 'is a rest-client');
 	test.equal(client.github.hostname, args, 'has a hostname');
@@ -15,13 +17,10 @@ exports.configureNameAndHostname = function(test) {
 };
 
 exports.configureSimpleObject = function(test) {
-	var client = reload('../lib');
 	var args = {
 		'github': 'api.github.com',
 		'metacpan': 'api.metacpan.org'
 	};
-	test.equal(client.github, undefined, 'registry starts empty');
-	test.equal(client.metacpan, undefined, 'registry starts empty');
 	client.configure(args);
 	test.ok(client.github instanceof client, 'is a rest-client');
 	test.equal(client.github.hostname, args.github, 'has a hostname');
@@ -31,12 +30,10 @@ exports.configureSimpleObject = function(test) {
 };
 
 exports.configureNameAndObject = function(test) {
-	var client = reload('../lib');
 	var args = {
 		base: 'api.github.com',
 		timeout: 123
 	};
-	test.equal(client.github, undefined, 'registry starts empty');
 	client.configure('github', args);
 	test.ok(client.github instanceof client, 'is a rest-client');
 	test.equal(client.github.hostname, args.base, 'has a hostname');
@@ -45,7 +42,6 @@ exports.configureNameAndObject = function(test) {
 };
 
 exports.configureComplexObject = function(test) {
-	var client = reload('../lib');
 	var args = {
 		'github': {
 			base: 'api.github.com',
@@ -56,8 +52,6 @@ exports.configureComplexObject = function(test) {
 			timeout: 456
 		}
 	};
-	test.equal(client.github, undefined, 'registry starts empty');
-	test.equal(client.metacpan, undefined, 'registry starts empty');
 	client.configure(args);
 	test.ok(client.github instanceof client, 'is a rest-client');
 	test.equal(client.github.hostname, args.github.base, 'has a hostname');
