@@ -6,7 +6,7 @@ exports.auth = function(test) {
 	client.get({
 		url: '/json',
 		success: function(data, response) {
-			test.equal(response.request.href, "http://" + client.auth + "@" + client.hostname + ':' + client.port  + "/json", "authorized");
+			test.equal(response.request.href, 'http://' + client.auth + '@' + client.hostname + ':' + client.port + '/json', 'authorized');
 			test.done();
 		}
 	});

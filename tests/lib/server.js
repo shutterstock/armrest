@@ -57,7 +57,7 @@ var server = http.createServer(function(req, res) {
 
 			if (req.headers['content-type'] !== 'application/json') {
 				res.writeHead(400);
-				return res.end(JSON.stringify({ "bad content type": req.headers['Content-Type'] }));
+				return res.end(JSON.stringify({ 'bad content type': req.headers['Content-Type'] }));
 			}
 
 			req.on('data', function(data) { body += data; });

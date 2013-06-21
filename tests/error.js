@@ -5,7 +5,7 @@ exports.connectionRefused = function(test) {
 	client.get({
 		url: '/json',
 		error: function(error) {
-			test.deepEqual(error.code, 'ECONNREFUSED', "connection refused for no server running");
+			test.deepEqual(error.code, 'ECONNREFUSED', 'connection refused for no server running');
 			test.done();
 		}
 	});
