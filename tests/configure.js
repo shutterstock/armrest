@@ -1,33 +1,69 @@
 var reload = function(module) {
-	delete require.cache[ require.resolve(module) ];
+	delete require.cache[require.resolve(module)];
 	return require(module);
 };
 
-exports.configure = function(test) {
+exports.configureNameAndHostname = function(test) {
+	var client = reload('../lib');
+	var args = 'api.github.com';
+	test.equal(client.github, undefined, 'registry starts empty');
+	client.configure('github', args);
+	test.ok(client.github instanceof client, 'is a rest-client');
+	test.equal(client.github.hostname, args, 'has a hostname');
+	test.done();
 
-	var client = require("../lib");
-	test.equal(client.github, undefined, "registry starts empty");
+};
 
-	client.configure('github', 'api.github.com');
-
-	test.ok(client.github instanceof client, "github client is a rest-client");
-	test.equal(client.github.hostname, 'api.github.com');
-
+exports.configureSimpleObject = function(test) {
+	var client = reload('../lib');
+	var args = {
+		'github': 'api.github.com',
+		'metacpan': 'api.metacpan.org'
+	};
+	test.equal(client.github, undefined, 'registry starts empty');
+	test.equal(client.metacpan, undefined, 'registry starts empty');
+	client.configure(args);
+	test.ok(client.github instanceof client, 'is a rest-client');
+	test.equal(client.github.hostname, args.github, 'has a hostname');
+	test.ok(client.metacpan instanceof client, 'is another rest-client');
+	test.equal(client.metacpan.hostname, args.metacpan, 'has another hostname');
 	test.done();
 };
 
-exports.bulk = function(test) {
-
+exports.configureNameAndObject = function(test) {
 	var client = reload('../lib');
-	test.equal(client.github, undefined, "registry starts empty");
+	var args = {
+		base: 'api.github.com',
+		timeout: 123
+	};
+	test.equal(client.github, undefined, 'registry starts empty');
+	client.configure('github', args);
+	test.ok(client.github instanceof client, 'is a rest-client');
+	test.equal(client.github.hostname, args.base, 'has a hostname');
+	test.equal(client.github.timeout, args.timeout, 'has a timeout');
+	test.done();
+};
 
-	client.configure({
-		"github": "api.github.com",
-		"metacpan": "api.metacpan.org"
-	});
-
-	test.equal(client.github.hostname, 'api.github.com');
-	test.equal(client.metacpan.hostname, 'api.metacpan.org');
-
+exports.configureComplexObject = function(test) {
+	var client = reload('../lib');
+	var args = {
+		'github': {
+			base: 'api.github.com',
+			timeout: 123
+		},
+		'metacpan': {
+			base: 'api.metacpan.org',
+			timeout: 456
+		}
+	};
+	test.equal(client.github, undefined, 'registry starts empty');
+	test.equal(client.metacpan, undefined, 'registry starts empty');
+	client.configure(args);
+	test.ok(client.github instanceof client, 'is a rest-client');
+	test.equal(client.github.hostname, args.github.base, 'has a hostname');
+	test.equal(client.github.timeout, args.github.timeout, 'has a timeout');
+	test.ok(client.metacpan instanceof client, 'is another rest-client');
+	test.equal(client.metacpan.hostname, args.metacpan.base, 'has another hostname');
+	test.equal(client.metacpan.timeout, args.metacpan.timeout, 'has another timeout');
 	test.done();
 };
