@@ -13,7 +13,6 @@ exports.configureNameAndHostname = function(test) {
 	test.ok(client.github instanceof client, 'is a rest-client');
 	test.equal(client.github.hostname, args, 'has a hostname');
 	test.done();
-
 };
 
 exports.configureSimpleObject = function(test) {
