@@ -1,4 +1,4 @@
-var server = require('./lib/server');
+var server = require('./setup/server');
 var Client = require('../lib');
 var client = new Client({ host: 'localhost:59903', logLevel: 'OFF' });
 
