@@ -115,10 +115,35 @@ exports.loris = function(test) {
 	});
 };
 
+exports.connectionRefused = function(test) {
+	server.close();
+	client.get({
+		url: '/json',
+		error: function(err, response) {
+			test.ok(!response);
+			test.equal(err.code, 'ECONNREFUSED', 'connection refused for no server running');
+		},
+		complete: function(err, response, data) {
+			test.ok(!response);
+			test.ok(!data);
+			test.equal(err.code, 'ECONNREFUSED', 'connection refused for no server running');
+			test.done();
+		}
+	});
+};
+
 exports.setUp = function(callback) {
 	server.listen(59903, null, null, callback);
 };
 
+/*
+ * Trap the exception thrown if server.close is thrown on a server that is not
+ * running
+ */
 exports.tearDown = function(callback) {
-	server.close(callback);
+	try {
+		server.close(callback);
+	} catch (e) {
+		callback();
+	}
 };
