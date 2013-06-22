@@ -14,26 +14,34 @@ exports.configureHeaders = function(test) {
 		url: '/json',
 		complete: function(err, response) {
 			test.ok(response);
-			test.ok(response.req._headers);
-			test.equals(response.req._headers['User-Agent'], config.headers['User-Agent'], 'Sent header');
+			test.equals(response.req._headers['user-agent'], config.headers['user-agent'], 'Sent user header');
 			test.done();
 		}
 	});
 };
 
 exports.overrideHeaders = function(test) {
-	test.fail(true);
-	test.done();
-};
-
-exports.callPostWithHeaders = function(test) {
-	test.fail(true);
-	test.done();
-};
-
-exports.callGetWithHeaders = function(test) {
-	test.fail(true);
-	test.done();
+	var config = {
+		host: 'localhost:59903',
+		logLevel: 'OFF',
+		headers: {
+			'user-agent': 'beardly',
+			'secret-agent': 'chet manly'
+		}
+	};
+	var client = new Client(config);
+	client.get({
+		url: '/json',
+		headers: {
+			'secret-agent': 'sterling mallory archer'
+		},
+		complete: function(err, response) {
+			test.ok(response);
+			test.equals(response.req._headers['user-agent'], config.headers['user-agent'], 'Sent user agent header');
+			test.equals(response.req._headers['secret-agent'], 'sterling mallory archer', 'Sent secret agent header');
+			test.done();
+		}
+	});
 };
 
 exports.setUp = function(callback) {
