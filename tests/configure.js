@@ -1,17 +1,17 @@
-var client;
+var Client;
 
 exports.setUp = function(callback) {
 	var clientPath = '../lib';
 	delete require.cache[require.resolve(clientPath)];
-	client = require(clientPath);
+	Client = require(clientPath);
 	callback();
 };
 
 exports.configureNameAndHostname = function(test) {
 	var args = 'api.github.com';
-	client.configure('github', args);
-	test.ok(client.github instanceof client, 'is a rest-client');
-	test.equal(client.github.hostname, args, 'has a hostname');
+	Client.configure('github', args);
+	test.ok(Client.github instanceof Client, 'is a client');
+	test.equal(Client.github.hostname, args, 'has a hostname');
 	test.done();
 };
 
@@ -20,11 +20,11 @@ exports.configureSimpleObject = function(test) {
 		'github': 'api.github.com',
 		'metacpan': 'api.metacpan.org'
 	};
-	client.configure(args);
-	test.ok(client.github instanceof client, 'is a rest-client');
-	test.equal(client.github.hostname, args.github, 'has a hostname');
-	test.ok(client.metacpan instanceof client, 'is another rest-client');
-	test.equal(client.metacpan.hostname, args.metacpan, 'has another hostname');
+	Client.configure(args);
+	test.ok(Client.github instanceof Client, 'is a client');
+	test.equal(Client.github.hostname, args.github, 'has a hostname');
+	test.ok(Client.metacpan instanceof Client, 'is another client');
+	test.equal(Client.metacpan.hostname, args.metacpan, 'has another hostname');
 	test.done();
 };
 
@@ -33,10 +33,10 @@ exports.configureNameAndObject = function(test) {
 		base: 'api.github.com',
 		timeout: 123
 	};
-	client.configure('github', args);
-	test.ok(client.github instanceof client, 'is a rest-client');
-	test.equal(client.github.hostname, args.base, 'has a hostname');
-	test.equal(client.github.timeout, args.timeout, 'has a timeout');
+	Client.configure('github', args);
+	test.ok(Client.github instanceof Client, 'is a client');
+	test.equal(Client.github.hostname, args.base, 'has a hostname');
+	test.equal(Client.github.timeout, args.timeout, 'has a timeout');
 	test.done();
 };
 
@@ -51,12 +51,12 @@ exports.configureComplexObject = function(test) {
 			timeout: 456
 		}
 	};
-	client.configure(args);
-	test.ok(client.github instanceof client, 'is a rest-client');
-	test.equal(client.github.hostname, args.github.base, 'has a hostname');
-	test.equal(client.github.timeout, args.github.timeout, 'has a timeout');
-	test.ok(client.metacpan instanceof client, 'is another rest-client');
-	test.equal(client.metacpan.hostname, args.metacpan.base, 'has another hostname');
-	test.equal(client.metacpan.timeout, args.metacpan.timeout, 'has another timeout');
+	Client.configure(args);
+	test.ok(Client.github instanceof Client, 'is a client');
+	test.equal(Client.github.hostname, args.github.base, 'has a hostname');
+	test.equal(Client.github.timeout, args.github.timeout, 'has a timeout');
+	test.ok(Client.metacpan instanceof Client, 'is another client');
+	test.equal(Client.metacpan.hostname, args.metacpan.base, 'has another hostname');
+	test.equal(Client.metacpan.timeout, args.metacpan.timeout, 'has another timeout');
 	test.done();
 };
