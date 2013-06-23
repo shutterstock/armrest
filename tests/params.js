@@ -1,6 +1,6 @@
 var server = require('./setup/server');
-var Client = require('../lib');
-var client = new Client({ host: 'localhost:59903', logLevel: 'OFF' });
+var armrest = require('../lib');
+var client = armrest.client({ host: 'localhost:59903', logLevel: 'OFF' });
 
 exports.getParams = function(test) {
 	client.get({

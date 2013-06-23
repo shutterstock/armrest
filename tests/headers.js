@@ -1,5 +1,5 @@
 var server = require('./setup/server');
-var Client = require('../lib');
+var armrest = require('../lib');
 
 exports.configureHeaders = function(test) {
 	var config = {
@@ -9,7 +9,7 @@ exports.configureHeaders = function(test) {
 			'user-agent': 'beardly'
 		}
 	};
-	var client = new Client(config);
+	var client = armrest.client(config);
 	client.get({
 		url: '/json',
 		complete: function(err, response) {
@@ -29,7 +29,7 @@ exports.overrideHeaders = function(test) {
 			'secret-agent': 'chet manly'
 		}
 	};
-	var client = new Client(config);
+	var client = armrest.client(config);
 	client.get({
 		url: '/json',
 		headers: {
@@ -51,4 +51,3 @@ exports.setUp = function(callback) {
 exports.tearDown = function(callback) {
 	server.close(callback);
 };
-
