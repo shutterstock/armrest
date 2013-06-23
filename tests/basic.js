@@ -70,12 +70,12 @@ exports.badResponse = function(test) {
 		url: '/content-type-liar',
 		error: function(err, response) {
 			test.ok(response);
-			test.ok(err.message.match(/couldn't parse/), 'bogus JSON balks');
+			test.ok(err.message.match(/Could not deserialize/), 'bogus JSON balks');
 		},
 		complete: function(err, response, data) {
 			test.ok(response);
 			test.ok(data);
-			test.ok(err.message.match(/couldn't parse/), 'bogus JSON balks');
+			test.ok(err.message.match(/Could not deserialize/), 'bogus JSON balks');
 			test.done();
 		}
 	});
