@@ -18,7 +18,8 @@ exports.constructArmrest = function(test) {
 	try {
 		var client = new armrest();
 	} catch (e) {
-		test.ok(e.constructor, TypeError, 'Cannot new up an instance');
+		test.equal(e.constructor, TypeError, 'Cannot new up an instance');
+		test.equal(client, undefined, 'Cannot new up an instance');
 		test.done();
 	}
 };
