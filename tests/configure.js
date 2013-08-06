@@ -1,33 +1,56 @@
-var reload = function(module) {
-	delete require.cache[ require.resolve(module) ];
-	return require(module);
-}
+var armrest;
 
-exports.configure = function(test) {
+exports.setUp = function(callback) {
+	var clientPath = '../lib';
+	delete require.cache[require.resolve(clientPath)];
+	armrest = require(clientPath);
+	callback();
+};
 
-	var client = require("../lib");
-	test.equal(client.github, undefined, "registry starts empty");
-
-	client.configure('github', 'api.github.com');
-
-	test.ok(client.github instanceof client, "github client is a rest-client");
-	test.equal(client.github.hostname, 'api.github.com');
-
+exports.configureNameAndHostname = function(test) {
+	var args = 'api.github.com';
+	armrest.configure('github', args);
+	test.equal(armrest.github.hostname, args, 'has a hostname');
 	test.done();
 };
 
-exports.bulk = function(test) {
+exports.configureSimpleObject = function(test) {
+	var args = {
+		'github': 'api.github.com',
+		'metacpan': 'api.metacpan.org'
+	};
+	armrest.configure(args);
+	test.equal(armrest.github.hostname, args.github, 'has a hostname');
+	test.equal(armrest.metacpan.hostname, args.metacpan, 'has another hostname');
+	test.done();
+};
 
-	var client = reload('../lib');
-	test.equal(client.github, undefined, "registry starts empty");
+exports.configureNameAndObject = function(test) {
+	var args = {
+		base: 'api.github.com',
+		timeout: 123
+	};
+	armrest.configure('github', args);
+	test.equal(armrest.github.hostname, args.base, 'has a hostname');
+	test.equal(armrest.github.timeout, args.timeout, 'has a timeout');
+	test.done();
+};
 
-	client.configure({
-		"github": "api.github.com",
-		"metacpan": "api.metacpan.org"
-	});
-
-	test.equal(client.github.hostname, 'api.github.com');
-	test.equal(client.metacpan.hostname, 'api.metacpan.org');
-
+exports.configureComplexObject = function(test) {
+	var args = {
+		'github': {
+			base: 'api.github.com',
+			timeout: 123
+		},
+		'metacpan': {
+			base: 'api.metacpan.org',
+			timeout: 456
+		}
+	};
+	armrest.configure(args);
+	test.equal(armrest.github.hostname, args.github.base, 'has a hostname');
+	test.equal(armrest.github.timeout, args.github.timeout, 'has a timeout');
+	test.equal(armrest.metacpan.hostname, args.metacpan.base, 'has another hostname');
+	test.equal(armrest.metacpan.timeout, args.metacpan.timeout, 'has another timeout');
 	test.done();
 };

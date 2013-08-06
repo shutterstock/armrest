@@ -8,7 +8,6 @@ Set up a client and issue a GET request:
 
 ```javascript
 var armrest = require('armrest');
-
 var github = armrest.client('http://api.github.com');
 
 github.get({
