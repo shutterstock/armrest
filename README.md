@@ -122,6 +122,26 @@ armrest.github.get(...);
 armrest.metacpan.get(...);
 ```
 
+## Working with Many Client Instances
+
+When you're working with a number of client instances and you want them to have the same default behavior, use the following method.
+
+### setDefaults(options)
+
+```javascript
+var armrest = require('armrest');
+
+armrest.setDefaults({
+	timeout: 10000
+});
+```
+
+This will set the default timeout for any request to 10000 milliseconds.  To clear the default behaviors, use:
+
+```javascript
+armrest.clearDefaults();
+```
+
 ## Authors
 
 This library was developed by David Chester and Zubin Tiku at [Shutterstock](http://www.shutterstock.com)
