@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 				maxparams: 4,
 				maxdepth: 4,
 				maxstatements: 45, // Made this up
-				maxcomplexity: 10, // Pulled from Steve McConnell
+				maxcomplexity: 15, // Pulled from Steve McConnell
 				maxlen: 160, // Two times 80 characters
 
 				// Node

@@ -21,7 +21,7 @@ exports.tearDown = function(callback) {
 };
 
 // Confirm request gets sent with the default headers
-exports.testDefaults = function(test) {
+exports.testDefaultHeader = function(test) {
 	client.get({
 		url: '/json',
 		complete: function(err, response) {
@@ -32,8 +32,8 @@ exports.testDefaults = function(test) {
 	});
 };
 
-// Conform we can override the default headers
-exports.testOverrideDefaults = function(test) {
+// Confirm we can override the default headers
+exports.testDefaultHeaderOverride = function(test) {
 	client.get({
 		url: '/json',
 		headers: {
@@ -41,14 +41,14 @@ exports.testOverrideDefaults = function(test) {
 		},
 		complete: function(err, response) {
 			test.ok(response);
-			test.equals(response.req._headers['user-agent'], 'test-driver', 'Overrided default user agent');
+			test.equals(response.req._headers['user-agent'], 'test-driver', 'Overrode default user agent');
 			test.done();
 		}
 	});
 };
 
 // Confirm that response time is close to timeout
-exports.testTimeoutDefault = function(test) {
+exports.testDefaultTimeout = function(test) {
 	var start = new Date().getTime();
 	client.get({
 		url: '/timer-5000ms',
