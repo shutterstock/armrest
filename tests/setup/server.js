@@ -38,6 +38,12 @@ var server = http.createServer(function(req, res) {
 				res.end('{ "results": 42 }');
 			}, 200);
 		},
+		'/timer-5000ms': function () {
+			setTimeout(function() {
+				res.writeHead(200, { 'Content-Type': 'text/plain' });
+				res.end('{ "results": 42 }');
+			}, 5000);
+		},
 		'/reverse-slowloris': function() {
 			res.writeHead(200, { 'Content-Type': 'text/plain' });
 			res.write('...');
