@@ -1,6 +1,5 @@
 var server = require('./setup/server');
 var armrest = require('../lib');
-var und = require('underscore');
 var client = armrest.client({
 	host: 'localhost:59903',
 	logLevel: 'OFF'
@@ -8,7 +7,7 @@ var client = armrest.client({
 
 exports.setUp = function(callback) {
 	server.listen(59903, null, null, callback);
-	armrest.setClientDefaults({
+	armrest.setDefaults({
 		timeout: 1000,
 		headers: {
 			'user-agent': 'armrest-test'
@@ -18,8 +17,7 @@ exports.setUp = function(callback) {
 
 exports.tearDown = function(callback) {
 	server.close(callback);
-	// Clear defaults for next set of tests
-	armrest.setClientDefaults({});
+	armrest.clearDefaults();
 };
 
 // Confirm request gets sent with the default headers
@@ -54,9 +52,10 @@ exports.testTimeoutDefault = function(test) {
 	var start = new Date().getTime();
 	client.get({
 		url: '/timer-5000ms',
-		complete: function(err, response) {
+		complete: function() {
 			test.ok(new Date().getTime() - start <= 1500);
 			test.done();
 		}
 	});
 };
+
