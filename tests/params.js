@@ -79,6 +79,19 @@ exports.interpolatePostQuery = function(test) {
 	});
 };
 
+exports.queryMutation = function (test) {
+	var query = { level: 'level', structure: 'structure' };
+
+	client.get({
+		url: '/multi/:level/:structure',
+		query: query,
+		success: function (data) {
+			test.deepEqual(query, { level: 'level', structure: 'structure' }, 'query object is not modified');
+			test.done();
+		}
+	});
+};
+
 exports.colons = function(test) {
 	client.get({
 		url: '/echo-query',
