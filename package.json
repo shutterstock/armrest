@@ -1,7 +1,7 @@
 {
   "name": "armrest",
   "description": "A high-level HTTP / REST client for Node",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": "David Chester <dchester@shutterstock.com>",
   "main": "./lib/",
   "scripts": {
