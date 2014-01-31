@@ -11,11 +11,11 @@ var armrest = require('armrest');
 var github = armrest.client('http://api.github.com');
 
 github.get({
-	url: '/orgs/:organization',
-	params: { organization: 'shutterstock' },
-	success: function(organization) {
-		// do something
-	}
+  url: '/orgs/:organization',
+  params: { organization: 'shutterstock' },
+  success: function(organization) {
+    // do something
+  }
 });
 ```
 
@@ -64,7 +64,7 @@ String indicating criticality of messages to log; one of `debug`, `info`, `warn`
 
 ## Methods
 
-### get(), post(), put(), delete(), head()
+### get(), post(), put(), patch(), delete(), head()
 
 Make an HTTP request to the service, given the parameters below.
 
@@ -102,13 +102,13 @@ A class method to register backend services.  Send a name for the service, and o
 var armrest = require('armrest');
 
 armrest.configure('github', {
-	base: 'http://api.github.com',
-	timeout: 5000
+  base: 'http://api.github.com',
+  timeout: 5000
 });
 
 armrest.configure('metacpan', {
-	base: 'http://api.metacpan.org',
-	timeout: 5000
+  base: 'http://api.metacpan.org',
+  timeout: 5000
 });
 
 ```
@@ -132,7 +132,7 @@ When you're working with a number of client instances and you want them to have 
 var armrest = require('armrest');
 
 armrest.setDefaults({
-	timeout: 10000
+  timeout: 10000
 });
 ```
 
