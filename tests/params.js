@@ -46,6 +46,28 @@ exports.postBody = function(test) {
 	});
 };
 
+exports.patchParams = function(test) {
+	client.patch({
+		url: '/echo-body',
+		params: { one: 1, two: 2 },
+		success: function(data) {
+			test.deepEqual(data, { one: 1, two: 2 }, 'got back what we patched as params');
+			test.done();
+		}
+	});
+};
+
+exports.patchBody = function(test) {
+	client.patch({
+		url: '/echo-body',
+		body: { one: 1, two: 2 },
+		success: function(data) {
+			test.deepEqual(data, { one: 1, two: 2 }, 'got back what we patched as body');
+			test.done();
+		}
+	});
+};
+
 exports.interpolateQuery = function(test) {
 	var query = { level: 'level', structure: 'structure' };
 	client.post({
