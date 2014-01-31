@@ -64,7 +64,7 @@ String indicating criticality of messages to log; one of `debug`, `info`, `warn`
 
 ## Methods
 
-### get(), post(), put(), delete(), head()
+### get(), post(), put(), patch(), delete(), head()
 
 Make an HTTP request to the service, given the parameters below.
 
