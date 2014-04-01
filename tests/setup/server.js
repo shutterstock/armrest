@@ -94,7 +94,7 @@ var server = http.createServer(function(req, res) {
 				body += data;
 			});
 			req.on('end', function() {
-				var writePath = path.resolve('./tests/data/metro-armrest-upload.jpg');
+				var writePath = path.resolve('./tests/data/metro-armrest-upload.png');
 				fs.writeFileSync(writePath, body, 'binary');
 				res.writeHead(200, { 'Content-Type': 'application/json' });
 				res.end();

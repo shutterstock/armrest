@@ -6,7 +6,7 @@ var client = armrest.client({ host: 'localhost:59903', logLevel: 'OFF' });
 
 exports.postBuffer = function(test) {
 
-	var originalPath = path.resolve('./tests/data/metro-armrest.jpg');
+	var originalPath = path.resolve('./tests/data/metro-armrest.png');
 	var original = fs.readFileSync(originalPath);
 	var originalSample = original.toString(null, 0, 16);
 
@@ -15,7 +15,7 @@ exports.postBuffer = function(test) {
 		body: original,
 		success: function(data, response) {
 
-			var uploadPath = path.resolve('./tests/data/metro-armrest-upload.jpg');
+			var uploadPath = path.resolve('./tests/data/metro-armrest-upload.png');
 			var upload = fs.readFileSync(uploadPath);
 			var uploadSample = upload.toString(null, 0, 16);
 

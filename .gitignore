@@ -14,5 +14,5 @@ results
 npm-debug.log
 node_modules
 
-tests/data/metro-armrest-download.jpg
-tests/data/metro-armrest-upload.jpg
+tests/data/metro-armrest-download.png
+tests/data/metro-armrest-upload.png
