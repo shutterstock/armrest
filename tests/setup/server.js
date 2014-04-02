@@ -20,6 +20,10 @@ var server = http.createServer(function(req, res) {
 			res.writeHead(200, { 'Content-Type': 'text/plain' });
 			res.end();
 		},
+		'/201-empty-response': function() {
+			res.writeHead(201, { 'Content-Type': 'text/plain' });
+			res.end(' ');
+		},
 		'/400': function() {
 			res.writeHead(400, { 'Content-Type': 'application/json' });
 			res.end('{ "error": "bad request" }');
