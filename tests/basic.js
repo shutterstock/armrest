@@ -47,6 +47,21 @@ exports.empty = function(test) {
 	});
 };
 
+exports.empty201Response = function(test) {
+	client.get({
+		url: '/201-empty-response',
+		success: function(data) {
+			test.deepEqual(data, undefined, 'we get back an empty response');
+		},
+		complete: function(err, response, data) {
+			test.ok(response);
+			test.ok(!err);
+			test.deepEqual(data, undefined, 'we get back an empty response');
+			test.done();
+		}
+	});
+};
+
 exports.badRequest = function(test) {
 	client.get({
 		url: '/400',
