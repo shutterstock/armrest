@@ -14,6 +14,13 @@ exports.object = function(test) {
 	test.done();
 };
 
+exports.objectWithHostnamePort = function(test) {
+	var client = armrest.client({ hostname: 'localhost', port: 8675 });
+	test.equal(client.hostname, 'localhost');
+	test.equal(client.port, 8675);
+	test.done();
+};
+
 exports.constructArmrest = function(test) {
 	try {
 		var client = new armrest();
