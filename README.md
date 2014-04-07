@@ -32,15 +32,19 @@ The `armrest.client()` factory takes two forms: send the base URL as a string if
 
 ##### base
 
-Base URL, including any or all of the scheme, host, port, and path.  This option overrides `host`, `scheme`, and `port`.
-
-##### host
-
-The host part of the base URL if `base` is not specified.
+The base URL, including any or all of the scheme, hostname, port, and path.  This option overrides `scheme`, `hostname` and `port`.
 
 ##### protocol
 
 The scheme part of the base URL if `base` is not specified, either `http` or `https`.  Defaults to `http`.  Aliased as `scheme` as well for compatibility.
+
+##### host
+
+The host part of the base URL (`hostname`:`port`) if `base` is not specified.
+
+##### hostname
+
+The hostname part of the base URL if `base` is not specified.
 
 ##### port
 
