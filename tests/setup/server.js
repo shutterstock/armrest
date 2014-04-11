@@ -103,6 +103,13 @@ var server = http.createServer(function(req, res) {
 			});
 		},
 
+		'/content-download': function() {
+			var readPath = path.resolve('./tests/data/metro-armrest.png');
+			var readStream = fs.createReadStream(readPath);
+			res.writeHead(200, { 'Content-Type': 'image/png' });
+			readStream.pipe(res);
+		},
+
 		'/multi/level/structure': function() {
 			res.writeHead(200, { 'Content-Type': 'application/json' });
 			res.end(JSON.stringify({ level: 'level', structure: 'structure' }));
