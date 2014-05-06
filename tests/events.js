@@ -5,7 +5,7 @@ var armrest = require('../lib');
 var client = armrest.client({ host: 'localhost:59903', logLevel: 'OFF' });
 var und = require('lodash');
 
-exports.responseEventSuccess= function(test) {
+exports.responseEventSuccess = function(test) {
 	var responses = [];
 
 	client.on('response', function(args) {
@@ -25,13 +25,13 @@ exports.responseEventSuccess= function(test) {
 			test.equal(responses[0]['statusCode'], 200);
 			test.equal(responses[0]['method'], 'GET');
 			test.equal(responses[0]['url'], '/json');
-			test.deepEqual(und.keys(responses[0]), [ 'statusCode', 'duration', 'method', 'url' ], 'we get back response code, request duration, method name, url');
-	  	test.done();
+			test.deepEqual(und.keys(responses[0]), ['statusCode', 'duration', 'method', 'url'], 'we get back response code, request duration, method name, url');
+			test.done();
 		}
 	});
 };
 
-exports.responseEventTimeout= function(test) {
+exports.responseEventTimeout = function(test) {
 	var responses = [];
 
 	client.on('response', function(args) {
@@ -53,7 +53,7 @@ exports.responseEventTimeout= function(test) {
 			test.equal(responses[0]['statusCode'], 'ETIMEDOUT');
 			test.equal(responses[0]['method'], 'GET');
 			test.equal(responses[0]['url'], '/timer-200ms');
-			test.deepEqual(und.keys(responses[0]), [ 'statusCode', 'duration', 'method', 'url' ], 'we get back response code, request duration, method name, url');
+			test.deepEqual(und.keys(responses[0]), ['statusCode', 'duration', 'method', 'url'], 'we get back response code, request duration, method name, url');
 			test.done();
 		}
 	});
