@@ -7,13 +7,18 @@ var und = require('lodash');
 
 exports.responseEventSuccess= function(test) {
 	var timesResponseEmitted = 0;
+	var timesNetworkErrorEmitted = 0;
+	var responseArgs;
+	var networkErrorArgs;
 
-	client.on('response', function(args) {
+	client.on('HttpResponse', function(args) {
 		timesResponseEmitted++;
-		test.deepEqual(und.keys(args), [ 'statusCode', 'duration', 'method', 'url' ], 'we get back response code, request duration, method name, url');
-		test.equal(args['statusCode'], 200);
-		test.equal(args['method'], 'GET');
-		test.equal(args['url'], '/json');
+		responseArgs = args;
+	});
+
+	client.on('NetworkError', function(args) {
+		timesNetworkErrorEmitted++;
+		networkErrorArgs = args;
 	});
 
 	client.get({
@@ -26,6 +31,11 @@ exports.responseEventSuccess= function(test) {
 			test.ok(!err);
 			test.deepEqual(data, { results: 42 }, 'we get back json for json');
 			test.equal(timesResponseEmitted, 1, 'response should be emitted once per request');
+			test.equal(timesNetworkErrorEmitted, 0, 'No network error');
+			test.deepEqual(und.keys(responseArgs), [ 'statusCode', 'duration', 'method', 'url' ], 'we get back response code, request duration, method name, url');
+			test.equal(responseArgs['statusCode'], 200);
+			test.equal(responseArgs['method'], 'GET');
+			test.equal(responseArgs['url'], '/json');
 	  	test.done();
 		}
 	});
@@ -33,13 +43,18 @@ exports.responseEventSuccess= function(test) {
 
 exports.responseEventTimeout= function(test) {
 	var timesResponseEmitted = 0;
+	var timesNetworkErrorEmitted = 0;
+	var responseArgs;
+	var networkErrorArgs;
 
-	client.on('response', function(args) {
+	client.on('HttpResponse', function(args) {
 		timesResponseEmitted++;
-		test.deepEqual(und.keys(args), [ 'statusCode', 'duration', 'method', 'url' ], 'we get back response code, request duration, method name, url');
-		test.equal(args['statusCode'], 'ETIMEDOUT');
-		test.equal(args['method'], 'GET');
-		test.equal(args['url'], '/timer-200ms');
+		responseArgs = args;
+	});
+
+	client.on('NetworkError', function(args) {
+		timesNetworkErrorEmitted++;
+		networkErrorArgs = args;
 	});
 
 	client.get({
@@ -53,7 +68,12 @@ exports.responseEventTimeout= function(test) {
 			test.ok(!response);
 			test.ok(!data);
 			test.equal(err.code, 'ETIMEDOUT', 'low timeout times out');
-			test.equal(timesResponseEmitted, 1, 'response should be emitted once per request');
+			test.equal(timesResponseEmitted, 0, 'should not emit response event when there is a newtwork error');
+			test.equal(timesNetworkErrorEmitted, 1, 'Should emit network-error event once');
+			test.deepEqual(und.keys(networkErrorArgs), [ 'statusCode', 'duration', 'method', 'url' ], 'we get back response code, request duration, method name, url');
+			test.equal(networkErrorArgs['statusCode'], 'ETIMEDOUT');
+			test.equal(networkErrorArgs['method'], 'GET');
+			test.equal(networkErrorArgs['url'], '/timer-200ms');
 			test.done();
 		}
 	});
@@ -61,13 +81,18 @@ exports.responseEventTimeout= function(test) {
 
 exports.responseEventPost = function(test) {
 	var timesResponseEmitted = 0;
+	var timesNetworkErrorEmitted = 0;
+	var responseArgs;
+	var networkErrorArgs;
 
-	client.on('response', function(args) {
+	client.on('HttpResponse', function(args) {
 		timesResponseEmitted++;
-		test.deepEqual(und.keys(args), [ 'statusCode', 'duration', 'method', 'url' ], 'we get back response code, request duration, method name, url');
-		test.equal(args['statusCode'], 200);
-		test.equal(args['method'], 'POST');
-		test.equal(args['url'], '/content-upload');
+		responseArgs = args;
+	});
+
+	client.on('NetworkError', function(args) {
+		timesNetworkErrorEmitted++;
+		networkErrorArgs = args;
 	});
 
 	var originalPath = path.resolve('./tests/data/metro-armrest.png');
@@ -86,6 +111,13 @@ exports.responseEventPost = function(test) {
 			test.equals(original.length, upload.length, 'original is the same size as uploaded');
 			test.equals(originalSample, uploadSample, 'original has the same sample data as uploaded');
 			test.deepEqual(data, undefined, 'we get back an empty response');
+			test.equal(timesResponseEmitted, 1, 'response should be emitted once per request');
+			test.equal(timesNetworkErrorEmitted, 0, 'No network error');
+			test.deepEqual(und.keys(responseArgs), [ 'statusCode', 'duration', 'method', 'url' ], 'we get back response code, request duration, method name, url');
+			test.equal(responseArgs['statusCode'], 200);
+			test.equal(responseArgs['method'], 'POST');
+			test.equal(responseArgs['url'], '/content-upload');
+
 			test.done();
 
 		}
