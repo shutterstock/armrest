@@ -68,20 +68,20 @@ exports.patchBody = function(test) {
 	});
 };
 
-exports.interpolateQuery = function(test) {
-	var query = { level: 'level', structure: 'structure' };
+exports.interpolateParamsPost = function(test) {
+	var params = { level: 'level', structure: 'structure' };
 	client.post({
 		url: '/multi/:level/:structure',
-		query: query,
+		params: params,
 		success: function(data) {
-			test.deepEqual(query, { level: 'level', structure: 'structure' }, 'query object is not modified');
+			test.deepEqual(params, { level: 'level', structure: 'structure' }, 'params object is not modified');
 			test.deepEqual(data, { level: 'level', structure: 'structure' }, 'got back interpolated values');
 			test.done();
 		}
 	});
 };
 
-exports.interpolateParams = function(test) {
+exports.interpolateParamsGet = function(test) {
 	var params = { level: 'level', structure: 'structure' };
 	client.get({
 		url: '/multi/:level/:structure',
