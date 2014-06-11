@@ -103,12 +103,29 @@ exports.notFoundEmpty = function(test) {
 		error: function(err, response) {
 			test.ok(response);
 			test.equal(response.statusCode, 404, 'we get not found');
-			test.ok(err.message.match(/Not Found/), 'we get back an HTTP status code');
+			test.ok(err.message.match(/Not Found/), 'we get back an HTTP status code error');
 		},
 		complete: function(err, response, data) {
 			test.ok(response);
 			test.ok(!data);
-			test.ok(err.message.match(/Not Found/), 'we get back an HTTP status code');
+			test.ok(err.message.match(/Not Found/), 'we get back an HTTP status code error');
+			test.done();
+		}
+	});
+};
+
+exports.unknownStatusEmpty = function(test) {
+	client.get({
+		url: '/646',
+		error: function(err, response) {
+			test.ok(response);
+			test.equal(response.statusCode, 646, 'we get a crazy status code');
+			test.ok(err.message.match(/Unknown HTTP Status Code/), 'we get back an unknown HTTP status code error');
+		},
+		complete: function(err, response, data) {
+			test.ok(response);
+			test.ok(!data);
+			test.ok(err.message.match(/Unknown HTTP Status Code/), 'we get back an unknown HTTP status code error');
 			test.done();
 		}
 	});

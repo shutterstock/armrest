@@ -51,8 +51,8 @@ var server = http.createServer(function(req, res) {
 			res.end('{ "error": "internal server error" }');
 		},
 
-		'/1969': function() {
-			res.writeHead(1969, { 'Content-Type': 'application/json' });
+		'/646': function() {
+			res.writeHead(646, { 'Content-Type': 'application/json' });
 			res.end('');
 		},
 
