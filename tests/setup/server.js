@@ -41,12 +41,12 @@ var server = http.createServer(function(req, res) {
 			res.end('{ "error": "not found" }');
 		},
 
-		'404-empty': function() {
+		'/404-empty': function() {
 			res.writeHead(404, { 'Content-Type': 'text/plain' });
 			res.end('');
 		},
 
-		'404-json-bare': function() {
+		'/404-json-bare': function() {
 			res.writeHead(404, { 'Content-Type': 'application/json' });
 			res.end('{}');
 		},
