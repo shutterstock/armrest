@@ -12,7 +12,7 @@ exports.postBuffer = function(test) {
 	client.post({
 		url: '/content-upload',
 		body: original,
-		success: function(data, response) {
+		success: function(data) {
 			var uploadPath = path.resolve('./tests/data/metro-armrest-upload.png');
 			var upload = fs.readFileSync(uploadPath);
 			var uploadSample = upload.toString(null, 0, 16);
@@ -28,7 +28,7 @@ exports.getBuffer = function(test) {
 	client.get({
 		url: '/content-download',
 		encoding: null,
-		success: function(download, response) {
+		success: function(download) {
 			var downloadSample = download.toString(null, 0, 16);
 			var downloadPath = path.resolve('./tests/data/metro-armrest-download.png');
 			var downloadStream = fs.createWriteStream(downloadPath);

@@ -4,6 +4,7 @@ var server = require('./setup/server');
 var armrest = require('../lib');
 var client = armrest.client({ host: 'localhost:59903', logLevel: 'OFF' });
 var und = require('lodash');
+var expectedKeys = ['statusCode', 'duration', 'method', 'url'];
 
 exports.responseEventSuccess = function(test) {
 	var responses = [];
@@ -22,10 +23,10 @@ exports.responseEventSuccess = function(test) {
 			test.ok(!err);
 			test.deepEqual(data, { results: 42 }, 'we get back json for json');
 			test.equal(responses.length, 1, 'response should be emitted once per request');
-			test.equal(responses[0]['statusCode'], 200);
-			test.equal(responses[0]['method'], 'GET');
-			test.equal(responses[0]['url'], '/json');
-			test.deepEqual(und.keys(responses[0]), ['statusCode', 'duration', 'method', 'url'], 'we get back response code, request duration, method name, url');
+			test.equal(responses[0].statusCode, 200);
+			test.equal(responses[0].method, 'GET');
+			test.equal(responses[0].url, '/json');
+			test.deepEqual(und.keys(responses[0]), expectedKeys, 'we get back response code, request duration, method name, url');
 			test.done();
 		}
 	});
@@ -50,10 +51,10 @@ exports.responseEventTimeout = function(test) {
 			test.ok(!data);
 			test.equal(err.code, 'ETIMEDOUT', 'low timeout times out');
 			test.equal(responses.length, 1, 'response should be emitted once per request');
-			test.equal(responses[0]['statusCode'], 'ETIMEDOUT');
-			test.equal(responses[0]['method'], 'GET');
-			test.equal(responses[0]['url'], '/timer-200ms');
-			test.deepEqual(und.keys(responses[0]), ['statusCode', 'duration', 'method', 'url'], 'we get back response code, request duration, method name, url');
+			test.equal(responses[0].statusCode, 'ETIMEDOUT');
+			test.equal(responses[0].method, 'GET');
+			test.equal(responses[0].url, '/timer-200ms');
+			test.deepEqual(und.keys(responses[0]), expectedKeys, 'we get back response code, request duration, method name, url');
 			test.done();
 		}
 	});
@@ -73,7 +74,7 @@ exports.responseEventPost = function(test) {
 	client.post({
 		url: '/content-upload',
 		body: original,
-		success: function(data, response) {
+		success: function(data) {
 
 			var uploadPath = path.resolve('./tests/data/metro-armrest-upload.png');
 			var upload = fs.readFileSync(uploadPath);
@@ -83,9 +84,9 @@ exports.responseEventPost = function(test) {
 			test.equals(originalSample, uploadSample, 'original has the same sample data as uploaded');
 			test.deepEqual(data, undefined, 'we get back an empty response');
 			test.equal(responses.length, 1, 'response should be emitted once per request');
-			test.equal(responses[0]['statusCode'], 200);
-			test.equal(responses[0]['method'], 'POST');
-			test.equal(responses[0]['url'], '/content-upload');
+			test.equal(responses[0].statusCode, 200);
+			test.equal(responses[0].method, 'POST');
+			test.equal(responses[0].url, '/content-upload');
 
 			test.done();
 

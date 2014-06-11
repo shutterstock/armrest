@@ -80,6 +80,30 @@ exports.badRequest = function(test) {
 	});
 };
 
+exports.badRequestEmpty = function(test) {
+	client.get({
+		url: '/404-empty',
+		complete: function(err, response) {
+			test.ok(response);
+			test.ok(err);
+			test.deepEqual(err, { error: 'not found' }, 'we get back an error');
+			test.done();
+		}
+	});
+};
+
+exports.badRequestBareObject = function(test) {
+	client.get({
+		url: '/404-json-bare',
+		complete: function(err, response) {
+			test.ok(response);
+			test.ok(err);
+			test.deepEqual(err, { error: 'not found' }, 'we get back bare json');
+			test.done();
+		}
+	});
+};
+
 exports.badResponse = function(test) {
 	client.get({
 		url: '/content-type-liar',
