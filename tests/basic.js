@@ -80,25 +80,35 @@ exports.badRequest = function(test) {
 	});
 };
 
-exports.badRequestEmpty = function(test) {
+exports.notFoundObject = function(test) {
 	client.get({
-		url: '/404-empty',
-		complete: function(err, response) {
+		url: '/404-json',
+		error: function(err, response) {
 			test.ok(response);
-			test.ok(err);
-			test.deepEqual(err, { error: 'not found' }, 'we get back an error');
+			test.equal(response.statusCode, 404, 'we get not found');
+			test.deepEqual(err, { error: 'srry'}, 'we get back json');
+		},
+		complete: function(err, response, data) {
+			test.ok(response);
+			test.ok(data);
+			test.deepEqual(err, { error: 'srry'}, 'we get back json');
 			test.done();
 		}
 	});
 };
 
-exports.badRequestBareObject = function(test) {
+exports.notFoundEmpty = function(test) {
 	client.get({
-		url: '/404-json-bare',
-		complete: function(err, response) {
+		url: '/404-empty',
+		error: function(err, response) {
 			test.ok(response);
-			test.ok(err);
-			test.deepEqual(err, { error: 'not found' }, 'we get back bare json');
+			test.equal(response.statusCode, 404, 'we get not found');
+			test.ok(err.message.match(/Not Found/), 'we get back an HTTP status code');
+		},
+		complete: function(err, response, data) {
+			test.ok(response);
+			test.ok(!data);
+			test.ok(err.message.match(/Not Found/), 'we get back an HTTP status code');
 			test.done();
 		}
 	});

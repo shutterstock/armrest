@@ -36,9 +36,9 @@ var server = http.createServer(function(req, res) {
 			res.end('{ "error": "bad request" }');
 		},
 
-		'/404': function() {
+		'/404-json': function() {
 			res.writeHead(404, { 'Content-Type': 'application/json' });
-			res.end('{ "error": "not found" }');
+			res.end('{ "error": "srry" }');
 		},
 
 		'/404-empty': function() {
@@ -46,14 +46,14 @@ var server = http.createServer(function(req, res) {
 			res.end('');
 		},
 
-		'/404-json-bare': function() {
-			res.writeHead(404, { 'Content-Type': 'application/json' });
-			res.end('{}');
-		},
-
 		'/500': function() {
 			res.writeHead(500, { 'Content-Type': 'application/json' });
 			res.end('{ "error": "internal server error" }');
+		},
+
+		'/1969': function() {
+			res.writeHead(1969, { 'Content-Type': 'application/json' });
+			res.end('');
 		},
 
 		'/timer-200ms': function() {
