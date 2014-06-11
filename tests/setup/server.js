@@ -36,6 +36,11 @@ var server = http.createServer(function(req, res) {
 			res.end('{ "error": "bad request" }');
 		},
 
+		'/404': function() {
+			res.writeHead(404, { 'Content-Type': 'application/json' });
+			res.end('{ "error": "not found" }');
+		},
+
 		'/404-json': function() {
 			res.writeHead(404, { 'Content-Type': 'application/json' });
 			res.end('{ "error": "srry" }');
