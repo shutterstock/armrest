@@ -11,6 +11,19 @@ var server = http.createServer(function(req, res) {
 
 	var routes = {
 
+		'/auth': function() {
+			var header = req.headers.authorization;
+			var token = header.split(/\s+/).pop();
+			var string = new Buffer(token, 'base64').toString();
+			var parts = string.split(/:/);
+			var info = {
+				username: parts[0],
+				password: parts[1]
+			};
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify(info));
+		},
+
 		'/json': function() {
 			res.writeHead(200, { 'Content-Type': 'application/json' });
 			res.end('{ "results": 42 }');

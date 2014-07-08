@@ -8,9 +8,11 @@ exports.authPropertyString = function(test) {
 		logLevel: 'OFF'
 	});
 	client.get({
-		url: '/json',
+		url: '/auth',
 		success: function(data, response) {
-			test.equal(response.request.href, 'http://' + client.auth + '@' + client.hostname + ':' + client.port + '/json', 'authorized');
+			test.equal(data.username, 'woo', 'has username');
+			test.equal(data.password, 'hoo', 'has password');
+			test.ok(response.request.headers.authorization, 'has auth headers');
 			test.done();
 		}
 	});
@@ -26,9 +28,11 @@ exports.authPropertyObject = function(test) {
 		logLevel: 'OFF'
 	});
 	client.get({
-		url: '/json',
+		url: '/auth',
 		success: function(data, response) {
-			test.equal(response.request.href, 'http://' + client.auth + '@' + client.hostname + ':' + client.port + '/json', 'authorized');
+			test.equal(data.username, 'woo', 'has username');
+			test.equal(data.password, 'hoo', 'has password');
+			test.ok(response.request.headers.authorization, 'has auth headers');
 			test.done();
 		}
 	});
@@ -36,13 +40,15 @@ exports.authPropertyObject = function(test) {
 
 exports.authBase = function(test) {
 	var client = armrest.client({ 
-		base: 'who:hoo@localhost:59903', 
+		base: 'woo:hoo@localhost:59903', 
 		logLevel: 'OFF'
 	});
 	client.get({
-		url: '/json',
+		url: '/auth',
 		success: function(data, response) {
-			test.equal(response.request.href, 'http://' + client.auth + '@' + client.hostname + ':' + client.port + '/json', 'authorized');
+			test.equal(data.username, 'woo', 'has username');
+			test.equal(data.password, 'hoo', 'has password');
+			test.ok(response.request.headers.authorization, 'has auth headers');
 			test.done();
 		}
 	});
