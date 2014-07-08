@@ -54,6 +54,43 @@ exports.authBase = function(test) {
 	});
 };
 
+exports.authArgsString = function(test) {
+	var client = armrest.client({ 
+		base: 'localhost:59903', 
+		logLevel: 'OFF'
+	});
+	client.get({
+		url: '/auth',
+		auth: 'woo:hoo', 
+		success: function(data, response) {
+			test.equal(data.username, 'woo', 'has username');
+			test.equal(data.password, 'hoo', 'has password');
+			test.ok(response.request.headers.authorization, 'has auth headers');
+			test.done();
+		}
+	});
+};
+
+exports.authArgsObject = function(test) {
+	var client = armrest.client({ 
+		base: 'localhost:59903', 
+		logLevel: 'OFF'
+	});
+	client.get({
+		url: '/auth',
+		auth: { 
+			username: 'woo',
+			password: 'hoo'
+		}, 
+		success: function(data, response) {
+			test.equal(data.username, 'woo', 'has username');
+			test.equal(data.password, 'hoo', 'has password');
+			test.ok(response.request.headers.authorization, 'has auth headers');
+			test.done();
+		}
+	});
+};
+
 exports.setUp = function(callback) {
 	server.listen(59903, null, null, callback);
 };
