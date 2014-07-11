@@ -68,6 +68,28 @@ exports.patchBody = function(test) {
 	});
 };
 
+exports.deleteParams = function(test) {
+	client.delete({
+		url: '/echo-body',
+		params: { one: 1, two: 2 },
+		success: function(data) {
+			test.deepEqual(data, { one: 1, two: 2 }, 'got back what delete sent as params');
+			test.done();
+		}
+	});
+};
+
+exports.deleteBody = function(test) {
+	client.delete({
+		url: '/echo-body',
+		body: { one: 1, two: 2 },
+		success: function(data) {
+			test.deepEqual(data, { one: 1, two: 2 }, 'got back what delete sent as body');
+			test.done();
+		}
+	});
+};
+
 exports.interpolateParamsPost = function(test) {
 	var params = { level: 'level', structure: 'structure' };
 	client.post({
