@@ -70,7 +70,7 @@ exports.patchBody = function(test) {
 
 exports.deleteParams = function(test) {
 	client.delete({
-		url: '/echo-body',
+		url: '/echo-query',
 		params: { one: 1, two: 2 },
 		success: function(data) {
 			test.deepEqual(data, { one: 1, two: 2 }, 'got back what delete sent as params');
@@ -79,12 +79,12 @@ exports.deleteParams = function(test) {
 	});
 };
 
-exports.deleteBody = function(test) {
+exports.deleteQuery = function(test) {
 	client.delete({
-		url: '/echo-body',
-		body: { one: 1, two: 2 },
+		url: '/echo-query',
+		query: { one: 1, two: 2 },
 		success: function(data) {
-			test.deepEqual(data, { one: 1, two: 2 }, 'got back what delete sent as body');
+			test.deepEqual(data, { one: 1, two: 2 }, 'got back what delete sent as query');
 			test.done();
 		}
 	});
