@@ -78,7 +78,7 @@ The path component of the URL.  URLs may have sinatra-style interpolation tokens
 
 ##### params
 
-Paramaters to be sent with the request.  For HEAD and GET requests these will be sent as query string parameters.  For other HTTP methods, parameters will be serialized according to the serialization scheme associated with the client, and sent in the body of the request.
+Paramaters to be sent with the request.  For HEAD, GET and DELETE requests these will be sent as query string parameters.  For other HTTP methods, parameters will be serialized according to the serialization scheme associated with the client, and sent in the body of the request.
 
 ##### success
 
