@@ -37,8 +37,8 @@ module.exports = function(grunt) {
 					'require': true,
 					'process': true,
 					'module': true,
-					'setTimeout': true
-
+					'setTimeout': true,
+					'Buffer': true
 				}
 
 			}
