@@ -1,3 +1,6 @@
+##4.2.2
+ * Fixed `path` behavior in base
+
 ##4.2.1
  * Updated dependencies
 
