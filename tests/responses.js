@@ -2,7 +2,7 @@ var server = require('./setup/server');
 var armrest = require('../lib');
 var client = armrest.client({ host: 'localhost:59903', logLevel: 'OFF' });
 
-exports.json = function(test) {
+exports.getJson = function(test) {
 	client.get({
 		url: '/json',
 		success: function(data) {
@@ -17,7 +17,7 @@ exports.json = function(test) {
 	});
 };
 
-exports.jsonUnannounced = function(test) {
+exports.getJsonUnannounced = function(test) {
 	client.get({
 		url: '/json-unannounced',
 		success: function(data) {
@@ -32,7 +32,7 @@ exports.jsonUnannounced = function(test) {
 	});
 };
 
-exports.empty = function(test) {
+exports.getEmpty = function(test) {
 	client.get({
 		url: '/empty',
 		success: function(data) {
@@ -47,7 +47,7 @@ exports.empty = function(test) {
 	});
 };
 
-exports.empty201Response = function(test) {
+exports.getEmpty201Response = function(test) {
 	client.get({
 		url: '/201-empty-response',
 		success: function(data) {
@@ -62,7 +62,7 @@ exports.empty201Response = function(test) {
 	});
 };
 
-exports.badRequest = function(test) {
+exports.getBadRequest = function(test) {
 	client.get({
 		url: '/400',
 		error: function(err, response) {
@@ -80,7 +80,7 @@ exports.badRequest = function(test) {
 	});
 };
 
-exports.notFoundObject = function(test) {
+exports.getNotFoundObject = function(test) {
 	client.get({
 		url: '/404-json',
 		error: function(err, response) {
@@ -97,7 +97,7 @@ exports.notFoundObject = function(test) {
 	});
 };
 
-exports.notFoundEmpty = function(test) {
+exports.getNotFoundEmpty = function(test) {
 	client.get({
 		url: '/404-empty',
 		error: function(err, response) {
@@ -114,7 +114,7 @@ exports.notFoundEmpty = function(test) {
 	});
 };
 
-exports.unknownStatusEmpty = function(test) {
+exports.getUnknownStatusEmpty = function(test) {
 	client.get({
 		url: '/646',
 		error: function(err, response) {
@@ -131,7 +131,7 @@ exports.unknownStatusEmpty = function(test) {
 	});
 };
 
-exports.badResponse = function(test) {
+exports.getBadResponse = function(test) {
 	client.get({
 		url: '/content-type-liar',
 		error: function(err, response) {
@@ -147,7 +147,7 @@ exports.badResponse = function(test) {
 	});
 };
 
-exports.timeout = function(test) {
+exports.getTimeout = function(test) {
 	client.get({
 		url: '/timer-200ms',
 		timeout: 100,
@@ -164,7 +164,7 @@ exports.timeout = function(test) {
 	});
 };
 
-exports.loris = function(test) {
+exports.getLoris = function(test) {
 	client.get({
 		url: '/reverse-slowloris',
 		timeout: 100,
@@ -181,7 +181,7 @@ exports.loris = function(test) {
 	});
 };
 
-exports.connectionRefused = function(test) {
+exports.getConnectionRefused = function(test) {
 	server.close();
 	client.get({
 		url: '/json',
