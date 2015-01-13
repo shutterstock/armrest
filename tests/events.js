@@ -4,7 +4,7 @@ var server = require('./setup/server');
 var armrest = require('../lib');
 var client = armrest.client({ host: 'localhost:59903', logLevel: 'OFF' });
 var und = require('lodash');
-var expectedKeys = ['statusCode', 'duration', 'method', 'url'];
+var expectedKeys = ['params', 'statusCode', 'duration', 'method', 'url'];
 
 exports.responseEventSuccess = function(test) {
 	var responses = [];
