@@ -1,3 +1,6 @@
+##4.3.0
+ * Updated `response` event emitter to return `params`
+
 ##4.2.2
  * Fixed `path` behavior in base
 
