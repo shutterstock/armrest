@@ -4,9 +4,10 @@ var server = require('./setup/server');
 var armrest = require('../lib');
 var client = armrest.client({ host: 'localhost:59903', logLevel: 'OFF' });
 var und = require('lodash');
-var expectedKeys = ['params', 'statusCode', 'duration', 'method', 'url'];
+var baseKeys = ['statusCode', 'duration', 'method', 'url'];
+var extendedKeys = baseKeys.concat(['params']);
 
-exports.responseEventSuccess = function(test) {
+exports.responseEventGet = function(test) {
 	var responses = [];
 
 	client.on('response', function(args) {
@@ -19,14 +20,12 @@ exports.responseEventSuccess = function(test) {
 			test.deepEqual(data, { results: 42 }, 'we get back json for json');
 		},
 		complete: function(err, response, data) {
-			test.ok(response);
-			test.ok(!err);
-			test.deepEqual(data, { results: 42 }, 'we get back json for json');
 			test.equal(responses.length, 1, 'response should be emitted once per request');
 			test.equal(responses[0].statusCode, 200);
 			test.equal(responses[0].method, 'GET');
 			test.equal(responses[0].url, '/json');
-			test.deepEqual(und.keys(responses[0]), expectedKeys, 'we get back response code, request duration, method name, url');
+			test.ok(responses[0].duration > 1);
+			test.deepEqual(und.keys(responses[0]), baseKeys, 'we get back expected keys');
 			test.done();
 		}
 	});
@@ -47,14 +46,12 @@ exports.responseEventTimeout = function(test) {
 			test.equal(err.code, 'ETIMEDOUT', 'low timeout times out');
 		},
 		complete: function(err, response, data) {
-			test.ok(!response);
-			test.ok(!data);
-			test.equal(err.code, 'ETIMEDOUT', 'low timeout times out');
 			test.equal(responses.length, 1, 'response should be emitted once per request');
 			test.equal(responses[0].statusCode, 'ETIMEDOUT');
 			test.equal(responses[0].method, 'GET');
 			test.equal(responses[0].url, '/timer-200ms');
-			test.deepEqual(und.keys(responses[0]), expectedKeys, 'we get back response code, request duration, method name, url');
+			test.ok(responses[0].duration > 1);
+			test.deepEqual(und.keys(responses[0]), baseKeys, 'we get back expected keys');
 			test.done();
 		}
 	});
@@ -62,37 +59,28 @@ exports.responseEventTimeout = function(test) {
 
 exports.responseEventPost = function(test) {
 	var responses = [];
+	var params = { level: 'level', structure: 'structure' };
 
 	client.on('response', function(args) {
 		responses.push(args);
 	});
 
-	var originalPath = path.resolve('./tests/data/metro-armrest.png');
-	var original = fs.readFileSync(originalPath);
-	var originalSample = original.toString(null, 0, 16);
-
 	client.post({
-		url: '/content-upload',
-		body: original,
+		url: '/multi/:level/:structure',
+		params: params,
 		success: function(data) {
-
-			var uploadPath = path.resolve('./tests/data/metro-armrest-upload.png');
-			var upload = fs.readFileSync(uploadPath);
-			var uploadSample = upload.toString(null, 0, 16);
-
-			test.equals(original.length, upload.length, 'original is the same size as uploaded');
-			test.equals(originalSample, uploadSample, 'original has the same sample data as uploaded');
-			test.deepEqual(data, undefined, 'we get back an empty response');
 			test.equal(responses.length, 1, 'response should be emitted once per request');
 			test.equal(responses[0].statusCode, 200);
 			test.equal(responses[0].method, 'POST');
-			test.equal(responses[0].url, '/content-upload');
-
+			test.equal(responses[0].url, '/multi/:level/:structure');
+			test.ok(responses[0].duration > 1);
+			test.deepEqual(responses[0].params, params);
+			test.deepEqual(und.keys(responses[0]), extendedKeys, 'we get back expected keys');
 			test.done();
-
 		}
 	});
 };
+
 exports.setUp = function(callback) {
 	server.listen(59903, null, null, callback);
 };
@@ -108,4 +96,3 @@ exports.tearDown = function(callback) {
 		callback();
 	}
 };
-
