@@ -4,6 +4,7 @@
   "version": "4.3.0",
   "author": "David Chester <dchester@shutterstock.com>",
   "main": "./lib/",
+  "license": "MIT",
   "scripts": {
     "test": "node_modules/nodeunit/bin/nodeunit tests"
   },
