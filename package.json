@@ -22,5 +22,26 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/shutterstock/armrest.git"
-  }
+  },
+  "keywords": [
+    "http",
+    "rest",
+    "nodejs",
+    "node"
+  ],
+  "homepage": "https://github.com/shutterstock/armrest",
+  "bugs": "https://github.com/shutterstock/armrest/issues",
+  "contributors": [
+    "Adam Fahy <afahy@shutterstock.com>",
+    "Alex Williams <awilliams@alexwilliams.ca>",
+    "Chris Becker <chrisb@shutterstock.com>",
+    "David Chester <david@shutterstock.com>",
+    "Elliot Foster <efoster@shutterstock.com>",
+    "Ilya Shaisultanov <ilya.shaisultanov@gmail.com>",
+    "Nick Doyle <ndoyle@shutterstock.com>",
+    "Nikolay Martynov <mar.kolya@gmail.com>",
+    "Richard Littauer <richard.littauer@gmail.com>",
+    "vkajjam <vkajjam@shutterstock.com>",
+    "Zubin Tiku <rubikzube@gmail.com>"
+  ]
 }
