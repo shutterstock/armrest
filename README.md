@@ -1,14 +1,39 @@
 # Armrest
 
-A high-level HTTP / REST services client for Node.
+[![Build Status](https://travis-ci.org/shutterstock/armrest.svg?branch=master)](https://travis-ci.org/shutterstock/armrest)
 
-## Example
+> A high-level HTTP / REST services client for Node.
+
+## Table of Contents
+
+- [Install](#install)
+- [Usage](#usage)
+	- [Example](#example)
+	- [Instantiating a REST Client](#instantiating-a-rest-client)
+	- [Methods](#methods)
+	- [Working with Many Backend Services](#working-with-many-backend-services)
+	- [Working with Many Client Instances](#working-with-many-client-instances)
+- [Authors](#authors)
+- [Contribute](#contribute)
+- [License](#license)
+
+## Install
+
+Install with npm:
+
+```sh
+$ npm install armrest
+```
+
+## Usage
+
+### Example
 
 Set up a client and issue a GET request:
 
 ```javascript
 var armrest = require('armrest');
-var github = armrest.client('http://api.github.com');
+var github = armrest.client('https://api.github.com');
 
 github.get({
 	url: '/orgs/:organization',
@@ -19,14 +44,7 @@ github.get({
 });
 ```
 
-## Installation
-
-Install with npm:
-```
-$ npm install armrest
-```
-
-## Instantiating a REST Client
+### Instantiating a REST Client
 
 The `armrest.client()` factory takes two forms: send the base URL as a string if that will get you going, or send an object with parameters below for more flexibility.
 
@@ -66,9 +84,9 @@ Instance of some logger that implements `debug()`, `info()`, `warn()`, and `erro
 
 String indicating criticality of messages to log; one of `debug`, `info`, `warn`, or `error`.
 
-## Methods
+### Methods
 
-### get(), post(), put(), patch(), delete(), head()
+#### get(), post(), put(), patch(), delete(), head()
 
 Make an HTTP request to the service, given the parameters below.
 
@@ -94,11 +112,11 @@ Callback to be executed upon completion, whether the request failed or succeeded
 
 ###### Additional parameters are passed through to [request](https://github.com/mikeal/request#requestoptions-callback).
 
-## Working with Many Backend Services
+### Working with Many Backend Services
 
 When you're working with a number of services at once, use the following alternate interface to configure clients and get easy access for later use.
 
-### configure(name, options)
+#### configure(name, options)
 
 A class method to register backend services.  Send a name for the service, and options expected by the constructor, as detailed above.
 
@@ -126,11 +144,11 @@ armrest.github.get(...);
 armrest.metacpan.get(...);
 ```
 
-## Working with Many Client Instances
+### Working with Many Client Instances
 
 When you're working with a number of client instances and you want them to have the same default behavior, use the following method.
 
-### setDefaults(options)
+#### setDefaults(options)
 
 ```javascript
 var armrest = require('armrest');
@@ -150,6 +168,9 @@ armrest.clearDefaults();
 
 This library was developed by David Chester and Zubin Tiku at [Shutterstock](http://www.shutterstock.com)
 
+## Contribute
+
+Please do! Check out our [contributing guide](CONTRIBUTING.md).
 
 ## License
 
