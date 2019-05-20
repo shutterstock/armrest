@@ -1,3 +1,7 @@
+##5.0.0
+ * Update dependencies for security fixes
+ * Removed support for node < 8
+
 ##4.3.0
  * Updated `response` event emitter to return `params`
 
