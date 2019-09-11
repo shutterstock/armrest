@@ -153,12 +153,12 @@ exports.getTimeout = function(test) {
 		timeout: 100,
 		error: function(err, response) {
 			test.ok(!response);
-			test.equal(err.code, 'ETIMEDOUT', 'low timeout times out');
+			test.equal(err.code, 'ESOCKETTIMEDOUT', 'low timeout times out');
 		},
 		complete: function(err, response, data) {
 			test.ok(!response);
 			test.ok(!data);
-			test.equal(err.code, 'ETIMEDOUT', 'low timeout times out');
+			test.equal(err.code, 'ESOCKETTIMEDOUT', 'low timeout times out');
 			test.done();
 		}
 	});
@@ -208,7 +208,11 @@ exports.setUp = function(callback) {
  */
 exports.tearDown = function(callback) {
 	try {
-		server.close(callback);
+		if (server.listening) {
+			server.close(callback);
+		} else {
+			callback();
+		}
 	} catch (e) {
 		callback();
 	}

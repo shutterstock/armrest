@@ -6,7 +6,7 @@ var client = armrest.client({ host: 'localhost:59903', logLevel: 'OFF' });
 
 var originalPath = path.resolve('./tests/data/metro-armrest.png');
 var original = fs.readFileSync(originalPath);
-var originalSample = original.toString(null, 0, 16);
+var originalSample = original.toString(undefined, 0, 16);
 
 exports.postBuffer = function(test) {
 	client.post({
@@ -15,7 +15,7 @@ exports.postBuffer = function(test) {
 		success: function(data) {
 			var uploadPath = path.resolve('./tests/data/metro-armrest-upload.png');
 			var upload = fs.readFileSync(uploadPath);
-			var uploadSample = upload.toString(null, 0, 16);
+			var uploadSample = upload.toString(undefined, 0, 16);
 			test.equals(original.length, upload.length, 'original is the same size as uploaded');
 			test.equals(originalSample, uploadSample, 'original has the same sample data as uploaded');
 			test.deepEqual(data, undefined, 'we get back an empty response');
@@ -29,7 +29,7 @@ exports.getBuffer = function(test) {
 		url: '/content-download',
 		encoding: null,
 		success: function(download) {
-			var downloadSample = download.toString(null, 0, 16);
+			var downloadSample = download.toString(undefined, 0, 16);
 			var downloadPath = path.resolve('./tests/data/metro-armrest-download.png');
 			var downloadStream = fs.createWriteStream(downloadPath);
 			downloadStream.write(download);
