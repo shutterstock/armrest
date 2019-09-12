@@ -1,5 +1,3 @@
-var fs = require('fs');
-var path = require('path');
 var server = require('./setup/server');
 var armrest = require('../lib');
 var client = armrest.client({ host: 'localhost:59903', logLevel: 'OFF' });
@@ -20,6 +18,9 @@ exports.responseEventGet = function(test) {
 			test.deepEqual(data, { results: 42 }, 'we get back json for json');
 		},
 		complete: function(err, response, data) {
+			test.equal(err, null);
+			test.equal(response.body, '{ "results": 42 }');
+			test.deepEqual(data, { results: 42 });
 			test.equal(responses.length, 1, 'response should be emitted once per request');
 			test.equal(responses[0].statusCode, 200);
 			test.equal(responses[0].method, 'GET');
@@ -46,6 +47,9 @@ exports.responseEventTimeout = function(test) {
 			test.equal(err.code, 'ESOCKETTIMEDOUT', 'low timeout times out');
 		},
 		complete: function(err, response, data) {
+			test.equal(err.message, 'ESOCKETTIMEDOUT');
+			test.equal(response, undefined);
+			test.equal(data, undefined);
 			test.equal(responses.length, 1, 'response should be emitted once per request');
 			test.equal(responses[0].statusCode, 'ESOCKETTIMEDOUT');
 			test.equal(responses[0].method, 'GET');
@@ -69,6 +73,7 @@ exports.responseEventPost = function(test) {
 		url: '/multi/:level/:structure',
 		params: params,
 		success: function(data) {
+			test.deepEqual(data, { level: 'level', structure: 'structure' });
 			test.equal(responses.length, 1, 'response should be emitted once per request');
 			test.equal(responses[0].statusCode, 200);
 			test.equal(responses[0].method, 'POST');
