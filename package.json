@@ -6,16 +6,15 @@
   "main": "./lib/",
   "license": "MIT",
   "scripts": {
+    "lint": "jshint lib tests",
     "test": "node_modules/nodeunit/bin/nodeunit tests"
   },
   "devDependencies": {
-    "nodeunit": "0.9.0",
-    "grunt": "0.4.5",
-    "grunt-contrib-jshint": "0.10.0",
-    "grunt-contrib-nodeunit": "0.4.0"
+    "jshint": "^2.10.2",
+    "nodeunit": "0.11.3"
   },
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "log4js": "^0.6.36",
     "request": "^2.88.0"
   },

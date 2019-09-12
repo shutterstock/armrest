@@ -30,6 +30,7 @@ exports.objectClientWithBase = function(test) {
 	client.get({
 		url: '/structure',
 		success: function(data, response) {
+			test.equal(response.body, '{"level":"level","structure":"structure"}');
 			test.deepEqual(data, { level: 'level', structure: 'structure' }, 'Added the base path to the request');
 			test.done();
 		},
@@ -38,10 +39,11 @@ exports.objectClientWithBase = function(test) {
 
 exports.constructor = function(test) {
 	try {
+		/* jshint newcap: false */
 		var client = new armrest();
+		test.equal(client, undefined, 'Cannot new up an instance');
 	} catch (e) {
 		test.equal(e.constructor, TypeError, 'Cannot new up an instance');
-		test.equal(client, undefined, 'Cannot new up an instance');
 		test.done();
 	}
 };

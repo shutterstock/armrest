@@ -1,0 +1,36 @@
+{
+	// Enforcing
+	"bitwise": true,
+	"curly": true,
+	"eqeqeq": true,
+	"immed": true,
+	"latedef": true,
+	"newcap": true,
+	"noempty": true,
+	"noarg": true,
+	"nonew": true,
+	"plusplus": true,
+	"undef": true,
+	"unused": true,
+	"trailing": true,
+
+	// Relaxing
+	"expr": true,
+
+	"maxparams": 4,
+	"maxdepth": 4,
+	"maxstatements": 45, // Made this up
+	"maxcomplexity": 15, // Pulled from Steve McConnell
+	"maxlen": 160, // Two times 80 characters
+
+	// Node
+	"globals": {
+
+		"exports": true,
+		"require": true,
+		"process": true,
+		"module": true,
+		"setTimeout": true,
+		"Buffer": true
+	}
+}
