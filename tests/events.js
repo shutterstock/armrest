@@ -43,11 +43,11 @@ exports.responseEventTimeout = function(test) {
 		timeout: 100,
 		error: function(err, response) {
 			test.ok(!response);
-			test.equal(err.code, 'ETIMEDOUT', 'low timeout times out');
+			test.equal(err.code, 'ESOCKETTIMEDOUT', 'low timeout times out');
 		},
 		complete: function(err, response, data) {
 			test.equal(responses.length, 1, 'response should be emitted once per request');
-			test.equal(responses[0].statusCode, 'ETIMEDOUT');
+			test.equal(responses[0].statusCode, 'ESOCKETTIMEDOUT');
 			test.equal(responses[0].method, 'GET');
 			test.equal(responses[0].url, '/timer-200ms');
 			test.ok(responses[0].duration > 1);

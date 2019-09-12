@@ -1,7 +1,7 @@
 {
   "name": "armrest",
   "description": "A high-level HTTP / REST client for Node",
-  "version": "4.3.0",
+  "version": "5.0.0",
   "author": "David Chester <dchester@shutterstock.com>",
   "main": "./lib/",
   "license": "MIT",
@@ -15,9 +15,9 @@
     "grunt-contrib-nodeunit": "0.4.0"
   },
   "dependencies": {
-    "request": "2.38.0",
-    "log4js": "0.6.16",
-    "lodash": "2.4.1"
+    "lodash": "^4.17.11",
+    "log4js": "^0.6.36",
+    "request": "^2.88.0"
   },
   "repository": {
     "type": "git",

@@ -153,12 +153,12 @@ exports.getTimeout = function(test) {
 		timeout: 100,
 		error: function(err, response) {
 			test.ok(!response);
-			test.equal(err.code, 'ETIMEDOUT', 'low timeout times out');
+			test.equal(err.code, 'ESOCKETTIMEDOUT', 'low timeout times out');
 		},
 		complete: function(err, response, data) {
 			test.ok(!response);
 			test.ok(!data);
-			test.equal(err.code, 'ETIMEDOUT', 'low timeout times out');
+			test.equal(err.code, 'ESOCKETTIMEDOUT', 'low timeout times out');
 			test.done();
 		}
 	});
@@ -176,23 +176,6 @@ exports.getLoris = function(test) {
 			test.ok(!response);
 			test.ok(!data);
 			test.equal(err.code, 'ESOCKETTIMEDOUT', 'hopeless request times out');
-			test.done();
-		}
-	});
-};
-
-exports.getConnectionRefused = function(test) {
-	server.close();
-	client.get({
-		url: '/json',
-		error: function(err, response) {
-			test.ok(!response);
-			test.equal(err.code, 'ECONNREFUSED', 'connection refused for no server running');
-		},
-		complete: function(err, response, data) {
-			test.ok(!response);
-			test.ok(!data);
-			test.equal(err.code, 'ECONNREFUSED', 'connection refused for no server running');
 			test.done();
 		}
 	});
