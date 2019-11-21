@@ -14,9 +14,9 @@
     "grunt-contrib-nodeunit": "~0.2.0"
   },
   "dependencies": {
-    "request": "2.27.0",
-    "log4js": "0.5.6",
-    "lodash": "2.2.1"
+    "request": "^2.46.0",
+    "log4js": "^0.5.6",
+    "lodash": "^2.2.1"
   },
   "repository": {
     "type": "git",
